@@ -8,17 +8,16 @@ import { CalculatorService } from '../calculator.service';
 })
 export class ScoreSheetComponent implements OnInit {
 
-  // frames = new Array<number>(10);
-  frames: number[] = [1,2,3,4,5,6,7,8,9,10];
+  frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private calculator: CalculatorService) { }
 
-  foo(): void{
-    this.calculator.roll(10)
+  foo(): void {
+    this.calculator.roll(10);
 
   }
   ngOnInit() {
-    
+
   }
 
 }

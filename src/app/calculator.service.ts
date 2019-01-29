@@ -5,14 +5,25 @@ import { Injectable } from '@angular/core';
 })
 export class CalculatorService {
 
+  balls: number[] = [];
+  currentScore: number;
+  maxScore: number;
   constructor() { }
 
-  
-  getValues(num: number){
-    
+  getValues(roll: number) {
+    if (this.balls.length < 21) {
+      this.balls.push(roll);
+      console.log(this.balls);
+
+      if (this.balls[1] === 10) {
+        console.log('Strike!');
+      }
+    }
   }
-  roll(num: number){
-    if(num === 10)
-      console.log("STRIKE!!!");
+  sendValues() { }
+  roll(num: number) {
+    if (num === 10) {
+      console.log('STRIKE!!!');
+    }
   }
 }
