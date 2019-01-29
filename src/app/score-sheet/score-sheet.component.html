@@ -1,8 +1,10 @@
-<div class="wrapper col-md-12">
-  <div *ngFor="let item of frames">
+<div class="wrapper ">
+  <div *ngFor="let item of frames; let isLast = last">
     <div class="frame">
-      <div class="ball1"></div>
-      <div class="ball2"></div>
+      <div class="frameHead"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div *ngIf="isLast" class="ball"></div>
       <div class="current-score"></div>
     </div>
   </div>

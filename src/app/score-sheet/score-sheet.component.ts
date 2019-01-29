@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScoreSheetComponent implements OnInit {
 
-  ball = new Array<number>(21);
   frames = new Array<number>(10);
 
   constructor() { }
