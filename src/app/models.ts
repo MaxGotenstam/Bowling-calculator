@@ -4,4 +4,7 @@ export interface Frames {
   ballTwo?: number;
   ballThree?: number;
   score?: number;
+  rolls?: number;
+  isStrike?: boolean;
+  isSpare?: boolean;
 }

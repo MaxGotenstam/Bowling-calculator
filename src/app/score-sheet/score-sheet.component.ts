@@ -14,30 +14,11 @@ export class ScoreSheetComponent implements OnInit {
   // frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   frames: Frames[];
-  frameAmount = 0;
+
   constructor(private calculator: CalculatorService) {
-    console.log(calculator.getFrames());
-  }
-
-  foo(): void {
-    this.calculator.roll(10);
-
-  }
-
-  getRoll(roll: number) {
-
-  }
-  getFrames() {
-    // if (this.frameAmount < 10) {
-    //   this.frames.push({ frameId: this.frameAmount });
-    //   ++this.frameAmount;
-    //   return this.frames;
-    // }
-    // console.log(this.frameAmount);
   }
 
   ngOnInit() {
-    this.calculator.getFrames();
   }
 
 }

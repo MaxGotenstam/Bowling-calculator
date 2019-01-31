@@ -2,7 +2,7 @@
   <div *ngFor="let item of calculator.getFrames(); let isLast = last">
     <div class="frame">
       <div class="frameHead">{{ item.frameId }}</div>
-      <div class="ball"></div>
+      <div class="ball">{{ item.rolls }}</div>
       <div class="ball"></div>
       <div *ngIf="isLast" class="ball"></div>
       <div class="current-score"></div>
