@@ -13,21 +13,10 @@ export class ScoreSheetComponent implements OnInit {
 
   // frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  frames: Array<Frames>;
+  frames: Frames[];
   frameAmount = 0;
   constructor(private calculator: CalculatorService) {
-    this.frames = [
-      {frameId: 1},
-      {frameId: 2},
-      {frameId: 3},
-      {frameId: 4},
-      {frameId: 5},
-      {frameId: 6},
-      {frameId: 7},
-      {frameId: 8},
-      {frameId: 9},
-      {frameId: 10}
-    ];
+    console.log(calculator.getFrames());
   }
 
   foo(): void {
@@ -48,7 +37,7 @@ export class ScoreSheetComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.calculator.getFrames();
   }
 
 }
