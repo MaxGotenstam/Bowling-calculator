@@ -8,7 +8,6 @@ import { CalculatorService } from '../calculator.service';
 })
 export class ButtonInputComponent implements OnInit {
 
-  inputBtn: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private calculator: CalculatorService) {
 
@@ -17,7 +16,6 @@ export class ButtonInputComponent implements OnInit {
   sendScore(value) {
     this.calculator.getRoll(value);
   }
-
 
   ngOnInit() {
   }

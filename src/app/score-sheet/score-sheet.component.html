@@ -1,14 +1,14 @@
 <div class="wrapper">
-  <div *ngFor="let item of calculator.getFrames(); let isLast = last">
+  <div *ngFor="let frame of calculator.getFrames(); let isLast = last">
     <div class="frame">
-      <div class="frameHead">{{ item.frameId }}</div>
-      <div class="ball">{{item.ballOne.roll === 10 ? '' : item.ballOne.roll}}</div>
+      <div class="frameHead">{{ frame.frameId }}</div>
+      <div class="ball">{{frame.ballOne.roll === 10 ? '' : frame.ballOne.roll}}</div>
       <div class="ball">{{
-        item.ballTwo.roll + item.ballOne.roll === 10 ? '/'
-        : item.ballOne.roll === 10 ? 'X' 
-        : item.ballTwo.roll }}</div>
-      <div *ngIf="isLast" class="ball">{{ item.ballThree.roll}}</div>
-      <div class="current-score">{{item.score === '0' ? '' : item.score  }}</div>
+        frame.ballTwo.roll + frame.ballOne.roll === 10 ? '/'
+        : frame.ballOne.roll === 10 ? 'X'
+        : frame.ballTwo.roll }}</div>
+      <div *ngIf="isLast" class="ball">{{ frame.ballThree.roll}}</div>
+      <div class="current-score"></div>
     </div>
   </div>
   <div class="max-score">

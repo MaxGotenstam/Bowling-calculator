@@ -1,6 +1,6 @@
 <h3 class="sheet-header">How many pins did you knock down? </h3>
 <div class="btn-wrapper row" >
-  <div *ngFor="let item of inputBtn">
-    <button class="btn btn-outline-primary" (click)="sendScore(item)">{{item}}</button>
+  <div *ngFor="let button of calculator.frames">
+    <button class="btn btn-outline-primary" (click)="sendScore(button.buttons)">{{button.buttons}}</button>
   </div>
 </div>
