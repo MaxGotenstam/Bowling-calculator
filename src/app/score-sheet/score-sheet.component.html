@@ -3,9 +3,12 @@
     <div class="frame">
       <div class="frameHead">{{ item.frameId }}</div>
       <div class="ball">{{item.ballOne.roll === 10 ? '' : item.ballOne.roll}}</div>
-      <div class="ball">{{ item.ballTwo.roll + item.ballOne.roll === 10 ? '/' : item.ballOne.roll === 10 ? 'X' : item.ballTwo.roll }}</div>
-      <div *ngIf="isLast" class="ball"></div>
-      <div class="current-score"></div>
+      <div class="ball">{{
+        item.ballTwo.roll + item.ballOne.roll === 10 ? '/'
+        : item.ballOne.roll === 10 ? 'X' 
+        : item.ballTwo.roll }}</div>
+      <div *ngIf="isLast" class="ball">{{ item.ballThree.roll}}</div>
+      <div class="current-score">{{item.score === '0' ? '' : item.score  }}</div>
     </div>
   </div>
   <div class="max-score">

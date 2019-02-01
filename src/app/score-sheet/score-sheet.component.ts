@@ -9,10 +9,6 @@ import { Frames } from '../models';
   styleUrls: ['./score-sheet.component.scss']
 })
 export class ScoreSheetComponent implements OnInit {
-  // @Output() select = new EventEmitter<Frames>();
-
-  // frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   frames: Frames[];
 
   constructor(private calculator: CalculatorService) {
