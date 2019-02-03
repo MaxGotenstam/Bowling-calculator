@@ -23,16 +23,14 @@ export class CalculatorService {
     // const strike = false;
     const spare = false;
     const frame = this.frames[this.currentFrameIndex];
-    const buttons = {buttons: Number};
+    const buttons = { buttons: Number };
     const ball = { roll: roll, frame: frame, isStrike: false, isSpare: false };
     const previousBall = this.balls[this.balls.indexOf(ball) - 1];
-    const score = {score: 0};
+    const score = { score: 0 };
 
     if (!frame.ballOne.roll) {
       frame.ballOne = ball;
-      if (ball.roll < 10) {
 
-      }
       if (ball.roll === 10) {
         ball.isStrike = true;
         this.currentFrameIndex++;
@@ -47,15 +45,15 @@ export class CalculatorService {
     if (frame.ballOne.roll + frame.ballTwo.roll < 10) {
 
     }
-
     if (this.currentFrameIndex === 10) {
       frame.lastFrame = true;
       console.log('last frame');
     }
-
     if (frame.lastFrame && ball.isStrike || frame.lastFrame && ball.isSpare) {
       frame.ballThree = ball;
-    }
+    } 
+
+
     this.balls.push(ball);
     this.getScore();
 
@@ -83,8 +81,6 @@ export class CalculatorService {
         this.frameScore = thisRoll + nextRoll;
         currentScore = currentScore + this.frameScore;
       } else {
-        // this.frameScore = thisRoll;
-        // currentScore = currentScore + this.frameScore;
         console.log(this.frameScore);
       }
       console.log(currentScore);
