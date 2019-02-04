@@ -18,6 +18,16 @@ describe('CalculatorService', () => {
     for (let i = 0; i < 10; i++) {
       service.getRoll(10);
     }
-    //expect(service).toBeTruthy();
+    expect(service).toBe('300');
+  });
+
+  it('should be spare', () => {
+    service.getRoll(0);
+    service.getRoll(10);
+  });
+
+  it('should be a strike', () => {
+  service.getRoll(10);
+  expect(service).toBe(this.frame.isStrike === true);
   });
 });

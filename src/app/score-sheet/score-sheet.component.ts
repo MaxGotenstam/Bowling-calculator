@@ -9,7 +9,7 @@ import { Frames } from '../models';
   styleUrls: ['./score-sheet.component.scss']
 })
 export class ScoreSheetComponent implements OnInit {
-  frames: Frames[];
+  // frames: Frames[];
 
   constructor(private calculator: CalculatorService) {
   }

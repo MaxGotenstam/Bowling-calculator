@@ -3,16 +3,32 @@
 
     <div *ngIf="!frame.lastFrame" class="frame">
       <div class="frameHead">{{ frame.frameId }}</div>
-      <div class="ball">{{ frame.ballOne.isStrike ? '' : frame.ballOne.roll }}</div>
-      <div class="ball">{{ frame.ballOne.isStrike ? 'X' : frame.ballTwo.isSpare ? '/' : frame.ballTwo.roll }}</div>
+      <div class="ball">{{
+        frame.ballOne.isStrike ? ''
+        : frame.ballOne.roll }}
+      </div>
+      <div class="ball">{{
+        frame.ballOne.isStrike ? 'X'
+        : frame.ballTwo.isSpare ? '/'
+        : frame.ballTwo.roll }}
+      </div>
       <div class="current-score">{{frame.score}}</div>
     </div>
 
     <div *ngIf="frame.lastFrame" class="frame">
       <div class="frameHead">{{ frame.frameId }}</div>
-      <div class="ball">{{ frame.ballOne.isStrike ? 'X' : frame.ballOne.roll }}</div>
-      <div class="ball">{{ frame.ballTwo.isStrike ? 'X' : frame.ballTwo.isSpare ? '/' : frame.ballTwo.roll }}</div>
-      <div class="ball">{{ frame.ballThree.isStrike ? 'X' : frame.ballThree.isSpare ? '/' : frame.ballThree.roll }}</div>
+      <div class="ball">{{
+        frame.ballOne.isStrike ? 'X'
+        : frame.ballOne.roll }}</div>
+      <div class="ball">{{
+        frame.ballTwo.isStrike ? 'X'
+        : frame.ballTwo.isSpare ? '/'
+        : frame.ballTwo.roll }}</div>
+      <div class="ball">{{
+        frame.ballThree.isStrike ? 'X'
+        : frame.ballThree.isSpare ? '/'
+        : frame.ballThree.roll }}
+      </div>
       <div class="current-score">{{frame.score}}</div>
     </div>
 
