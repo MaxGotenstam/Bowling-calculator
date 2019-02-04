@@ -28,31 +28,52 @@ export class CalculatorService {
     const previousBall = this.balls[this.balls.indexOf(ball) - 1];
     const score = { score: 0 };
 
-    if (!frame.ballOne.roll) {
-      frame.ballOne = ball;
 
-      if (ball.roll === 10) {
-        ball.isStrike = true;
-        this.currentFrameIndex++;
+    if (frame.lastFrame) {
+
+      if (!frame.ballOne.roll) {
+        frame.ballOne = ball;
+        if (ball.roll === 10) {
+          ball.isStrike = true;
+        }
+      } else if (!frame.ballTwo.roll) {
+        frame.ballTwo = ball;
+        if (ball.roll === 10 && frame.ballOne.isStrike) {
+          ball.isStrike = true;
+        } else if (ball.roll + frame.ballOne.roll === 10) {
+          ball.isSpare = true;
+        }
+      } else if (frame.ballOne.isStrike || (frame.ballTwo.isSpare || frame.ballTwo.isStrike)) {
+        frame.ballThree = ball;
       }
+
+
+
+      console.log(frame);
     } else {
-      frame.ballTwo = ball;
-      this.currentFrameIndex++;
-    }
-    if (frame.ballOne.roll + frame.ballTwo.roll === 10) {
-      ball.isSpare = true;
-    }
-    if (frame.ballOne.roll + frame.ballTwo.roll < 10) {
+      if (!frame.ballOne.roll) {
+        frame.ballOne = ball;
 
+        if (ball.roll === 10) {
+          ball.isStrike = true;
+          if (frame.lastFrame === false) {
+            this.currentFrameIndex++;
+          }
+        }
+      } else {
+        frame.ballTwo = ball;
+        if (frame.lastFrame === false) {
+          this.currentFrameIndex++;
+        }
+      }
+      if (frame.ballOne.roll + frame.ballTwo.roll === 10) {
+        ball.isSpare = true;
+      }
+      if (this.currentFrameIndex === 10) {
+        frame.lastFrame = true;
+        console.log('last frame');
+      }
     }
-    if (this.currentFrameIndex === 10) {
-      frame.lastFrame = true;
-      console.log('last frame');
-    }
-    if (frame.lastFrame && ball.isStrike || frame.lastFrame && ball.isSpare) {
-      frame.ballThree = ball;
-    } 
-
 
     this.balls.push(ball);
     this.getScore();
@@ -61,15 +82,18 @@ export class CalculatorService {
   getScore() {
     this.maxFrameScore = 30;
     let currentScore = 0;
-    console.log(this.balls);
+    // console.log(this.balls);
     for (let i = 0; i < this.balls.length; i++) {
-      const thisRoll = this.balls[i].roll;
+      const thisBall = this.balls[i];
+      const thisRoll = thisBall.roll;
       const nextRoll = this.balls[i + 1].roll;
       const nextNextRoll = this.balls[i + 2].roll;
-      const frame = this.balls;
-      const nextTwoRolls = nextRoll + nextNextRoll;
+      const frame = this.balls.indexOf(thisBall);
 
       if (thisRoll === 10) {
+        // console.log(isNaN(nextRoll), 'nextroll');
+        // console.log(isNaN(nextNextRoll), 'nextnextroll');
+        // console.log(isNaN(this.frameScore), 'framescore');
         this.frameScore = 10 + nextRoll + nextNextRoll;
         currentScore = currentScore + this.frameScore;
       }
@@ -81,14 +105,16 @@ export class CalculatorService {
         this.frameScore = thisRoll + nextRoll;
         currentScore = currentScore + this.frameScore;
       } else {
-        console.log(this.frameScore);
+        // console.log(this.frameScore);
       }
-      console.log(currentScore);
+      // console.log(isNaN(currentScore), 'currentscore');
+      // console.log(currentScore);
+
     }
     return this.balls;
   }
 
-  private initFrames() {
+  initFrames() {
     let frameAmount;
     const temp = { roll: undefined, frame: undefined };
     for (frameAmount = 1; frameAmount <= 10; frameAmount++) {
@@ -98,7 +124,7 @@ export class CalculatorService {
         ballTwo: temp,
         ballThree: temp,
         score: 0,
-        lastFrame: false,
+        lastFrame: frameAmount === 10,
         buttons: frameAmount,
       });
     }

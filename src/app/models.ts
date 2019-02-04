@@ -4,6 +4,8 @@ export interface Frames {
   ballTwo?: Ball;
   ballThree?: Ball;
   score?: number;
+  isStrike?: boolean;
+  isSpare?: boolean;
   lastFrame?: boolean;
   buttons?: number;
 }

@@ -1,15 +1,21 @@
 <div class="wrapper">
   <div *ngFor="let frame of calculator.getFrames(); let isLast = last">
-    <div class="frame">
+
+    <div *ngIf="!frame.lastFrame" class="frame">
       <div class="frameHead">{{ frame.frameId }}</div>
-      <div class="ball">{{frame.ballOne.roll === 10 ? '' : frame.ballOne.roll}}</div>
-      <div class="ball">{{
-        frame.ballTwo.roll + frame.ballOne.roll === 10 ? '/'
-        : frame.ballOne.roll === 10 ? 'X'
-        : frame.ballTwo.roll }}</div>
-      <div *ngIf="isLast" class="ball">{{ frame.ballThree.roll}}</div>
-      <div class="current-score"></div>
+      <div class="ball">{{ frame.ballOne.isStrike ? '' : frame.ballOne.roll }}</div>
+      <div class="ball">{{ frame.ballOne.isStrike ? 'X' : frame.ballTwo.isSpare ? '/' : frame.ballTwo.roll }}</div>
+      <div class="current-score">{{frame.score}}</div>
     </div>
+
+    <div *ngIf="frame.lastFrame" class="frame">
+      <div class="frameHead">{{ frame.frameId }}</div>
+      <div class="ball">{{ frame.ballOne.isStrike ? 'X' : frame.ballOne.roll }}</div>
+      <div class="ball">{{ frame.ballTwo.isStrike ? 'X' : frame.ballTwo.isSpare ? '/' : frame.ballTwo.roll }}</div>
+      <div class="ball">{{ frame.ballThree.isStrike ? 'X' : frame.ballThree.isSpare ? '/' : frame.ballThree.roll }}</div>
+      <div class="current-score">{{frame.score}}</div>
+    </div>
+
   </div>
   <div class="max-score">
     <div class="frameHead">Max Possible:</div>

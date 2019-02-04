@@ -1,6 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ScoreSheetComponent } from './score-sheet/score-sheet.component';
+import { ButtonInputComponent } from './button-input/button-input.component';
+import { HeaderComponent } from './header/header.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,7 +12,10 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        ScoreSheetComponent,
+        ButtonInputComponent,
+        HeaderComponent
       ],
     }).compileComponents();
   }));
@@ -18,18 +24,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'bowling-calculator'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('bowling-calculator');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to bowling-calculator!');
   });
 });
