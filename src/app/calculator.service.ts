@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Frames, Ball } from './models';
 import { Button } from 'protractor';
+import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,11 @@ export class CalculatorService {
 
   constructor() {
     this.initFrames();
-    console.log(this.frames);
+    // console.log(this.frames);
     this.currentFrameIndex = 0;
   }
 
   // ToDo:
-  // figure out why the score wont show
-  // fix bug where the "0"-input is being ignored
-  // make the unit-tests work properly
   // fix so you can't make the value of ballOne and ballTwo exceed 10
   // make it so you can't continue rolling balls after the last frame
   // fix the styling of the frames
@@ -30,10 +28,8 @@ export class CalculatorService {
     const frame = this.frames[this.currentFrameIndex];
     const ball = { roll: roll, frame: frame, isStrike: false, isSpare: false };
 
-
-
     if (frame.lastFrame) {
-      if (!frame.ballOne.roll  && frame.ballOne.roll !== 0) {
+      if (!frame.ballOne.roll && frame.ballOne.roll !== 0) {
         frame.ballOne = ball;
         if (frame.ballOne.roll === 10) {
           ball.isStrike = true;
@@ -56,13 +52,14 @@ export class CalculatorService {
 
         }
       }
-      console.log(frame);
+      // console.log(frame);
     } else {
-      if (!frame.ballOne.roll) {
+      if (!frame.ballOne.roll && frame.ballOne.roll !== 0) {
+
         frame.ballOne = ball;
         if (ball.roll === 10) {
-           ball.isStrike = true;
-           this.currentFrameIndex++;
+          ball.isStrike = true;
+          this.currentFrameIndex++;
         }
 
       } else {
@@ -70,64 +67,41 @@ export class CalculatorService {
         this.currentFrameIndex++;
       }
       if (ball.roll + frame.ballOne.roll === 10) {
-          ball.isSpare = true;
+        ball.isSpare = true;
       }
 
-      console.log(frame);
-      // if (!frame.ballOne.roll) {
-      //   frame.ballOne = ball;
-
-      //   if (ball.roll === 10) {
-      //     ball.isStrike = true;
-      //     if (frame.lastFrame === false) {
-      //       this.currentFrameIndex++;
-      //     }
-      //   }
-      // } else {
-      //   frame.ballTwo = ball;
-      //   if (frame.lastFrame === false) {
-      //     this.currentFrameIndex++;
-      //   }
-      // }
-      // if (frame.ballOne.roll + frame.ballTwo.roll === 10) {
-      //   ball.isSpare = true;
-      // }
       if (this.currentFrameIndex === 10) {
         frame.lastFrame = true;
-        console.log('last frame');
+        // console.log('last frame');
       }
     }
-
-
+    this.balls.push(ball);
     this.getScore();
   }
   getScore() {
-    this.maxFrameScore = 30;
-    let currentScore = 0;
     for (let i = 0; i < this.balls.length; i++) {
       const thisBall = this.balls[i];
-      const thisRoll = thisBall.roll;
-      const nextRoll = this.balls[i + 1].roll;
-      const nextNextRoll = this.balls[i + 2].roll;
-      const frame = this.balls.indexOf(thisBall);
-      let score = this.frames[i].score;
+      const nextBall = this.balls[i + 1];
+      const nextNextBall = this.balls[i + 2];
+      const frame = thisBall.frame;
+      const lastFrame = this.balls[i - 1];
+      let tempScore = 0;
 
-      if (thisRoll === 10) {
-        this.frameScore = thisRoll + nextRoll + nextNextRoll;
-        currentScore += this.frameScore;
-        score +=  this.frameScore;
-      } else if (thisRoll + nextRoll === 10) {
-        this.frameScore = thisRoll + nextNextRoll;
-        currentScore += this.frameScore;
-        score +=  this.frameScore;
-      } else if (thisRoll + nextRoll < 10) {
-        this.frameScore = thisRoll + nextRoll;
-        currentScore += this.frameScore;
-        score +=  this.frameScore;
+      if (thisBall.isStrike && nextBall && nextNextBall) {
+        tempScore += thisBall.roll + nextBall.roll + nextNextBall.roll;
+      } else if (thisBall.isSpare && nextBall) {
+        tempScore += frame.ballOne.roll + thisBall.roll + nextBall.roll;
+      } else {
+        tempScore += frame.ballOne.roll + frame.ballTwo.roll;
       }
-      console.log(currentScore);
+      frame.score = tempScore;
+      // if lastframe have points
+      // add lastframe to frame.score
+      if (lastFrame) {
+        frame.score += lastFrame;
+      }
+
     }
-    return this.balls;
   }
 
   initFrames() {

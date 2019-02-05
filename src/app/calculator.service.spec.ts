@@ -8,6 +8,7 @@ describe('CalculatorService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.get(CalculatorService);
     service.initFrames();
+    console.log(service.frames);
   });
 
   it('should be created', () => {
@@ -15,19 +16,21 @@ describe('CalculatorService', () => {
   });
 
   it('should be perfect score', () => {
+    console.log(service);
     for (let i = 0; i < 10; i++) {
       service.getRoll(10);
     }
-    expect(service).toBe('300');
+    expect(service.frames[9].score).toBe(300);
   });
 
   it('should be spare', () => {
-    service.getRoll(0);
-    service.getRoll(10);
+    service.getRoll(1);
+    service.getRoll(9);
+    expect(service.balls[1].isSpare).toBe(true);
   });
 
   it('should be a strike', () => {
   service.getRoll(10);
-  expect(service).toBe(this.frame.isStrike === true);
+  expect(service.balls[0].isStrike).toBe(true);
   });
 });

@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div *ngFor="let frame of calculator.getFrames(); let isLast = last">
+  <div *ngFor="let frame of calculator.getFrames();">
 
     <div *ngIf="!frame.lastFrame" class="frame">
       <div class="frameHead">{{ frame.frameId }}</div>
