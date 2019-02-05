@@ -15,17 +15,15 @@ describe('CalculatorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should be perfect score', () => {
-    console.log(service);
-    for (let i = 0; i < 10; i++) {
-      service.getRoll(10);
-    }
-    expect(service.frames[9].score).toBe(300);
+  it('should be normal', () => {
+    service.getRoll(3);
+    service.getRoll(4);
+    expect(service.balls[1].isSpare && service.balls[1].isStrike).toBe(false);
   });
 
   it('should be spare', () => {
-    service.getRoll(1);
-    service.getRoll(9);
+    service.getRoll(0);
+    service.getRoll(10);
     expect(service.balls[1].isSpare).toBe(true);
   });
 

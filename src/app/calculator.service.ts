@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Frames, Ball } from './models';
-import { Button } from 'protractor';
-import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +8,11 @@ export class CalculatorService {
   balls: Ball[] = [];
   frames: Frames[] = [];
   currentFrameIndex: number;
-  frameScore: number;
-  maxFrameScore: number;
 
   constructor() {
     this.initFrames();
-    // console.log(this.frames);
     this.currentFrameIndex = 0;
   }
-
-  // ToDo:
-  // fix so you can't make the value of ballOne and ballTwo exceed 10
-  // make it so you can't continue rolling balls after the last frame
-  // fix the styling of the frames
 
   getRoll(roll: number) {
     const frame = this.frames[this.currentFrameIndex];
@@ -46,13 +36,12 @@ export class CalculatorService {
         frame.ballThree = ball;
         if (ball.roll === 10 && (frame.ballTwo.isSpare || frame.ballTwo.isStrike)) {
           ball.isStrike = true;
-        } else if (!frame.ballTwo.isStrike && (ball.roll + frame.ballTwo.roll === 10)) {
+        } else if (!frame.ballTwo.isStrike && !frame.ballTwo.isSpare && (ball.roll + frame.ballTwo.roll === 10)) {
           ball.isSpare = true;
         } else if (frame.ballThree.roll) {
 
         }
       }
-      // console.log(frame);
     } else {
       if (!frame.ballOne.roll && frame.ballOne.roll !== 0) {
 
@@ -72,7 +61,6 @@ export class CalculatorService {
 
       if (this.currentFrameIndex === 10) {
         frame.lastFrame = true;
-        // console.log('last frame');
       }
     }
     this.balls.push(ball);
@@ -84,7 +72,7 @@ export class CalculatorService {
       const nextBall = this.balls[i + 1];
       const nextNextBall = this.balls[i + 2];
       const frame = thisBall.frame;
-      const lastFrame = this.balls[i - 1];
+      const frameBefore = this.frames[this.frames.indexOf(frame) - 1];
       let tempScore = 0;
 
       if (thisBall.isStrike && nextBall && nextNextBall) {
@@ -93,14 +81,15 @@ export class CalculatorService {
         tempScore += frame.ballOne.roll + thisBall.roll + nextBall.roll;
       } else {
         tempScore += frame.ballOne.roll + frame.ballTwo.roll;
+        if (frame.lastFrame && frame.ballThree.roll) {
+          tempScore += frame.ballThree.roll;
+        }
       }
       frame.score = tempScore;
-      // if lastframe have points
-      // add lastframe to frame.score
-      if (lastFrame) {
-        frame.score += lastFrame;
+      if (frameBefore) {
+        frame.score += frameBefore.score;
       }
-
+      console.log(frame.score);
     }
   }
 
